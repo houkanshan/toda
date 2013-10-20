@@ -35,14 +35,11 @@
     </script>
 
 
-    <script src="bower_components/angular/angular.js"></script>
+    <!-- build:js scripts/modules.js -->
+    <!-- endbuild -->
 
-        <!-- build:js scripts/modules.js -->
-        <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
