@@ -1,9 +1,6 @@
 'use strict';
 
 angular.module('todaApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize'
 ])
   .config(function ($routeProvider) {
     $routeProvider

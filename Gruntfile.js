@@ -22,10 +22,6 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
       },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
-      },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
@@ -55,7 +51,7 @@ module.exports = function (grunt) {
     },
     connect: {
       options: {
-        port: 9000,
+        port: 9999,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
         livereload: 35729
@@ -65,16 +61,6 @@ module.exports = function (grunt) {
           open: true,
           base: [
             '.tmp',
-            '<%= yeoman.app %>'
-          ]
-        }
-      },
-      test: {
-        options: {
-          port: 9001,
-          base: [
-            '.tmp',
-            'test',
             '<%= yeoman.app %>'
           ]
         }
@@ -121,15 +107,6 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       },
-      test: {
-        files: [{
-          expand: true,
-          cwd: 'test/spec',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
-          ext: '.js'
-        }]
-      }
     },
     // not used since Uglify task does concat,
     // but still available if needed
@@ -251,10 +228,6 @@ module.exports = function (grunt) {
         'coffee:dist',
         'copy:styles'
       ],
-      test: [
-        'coffee',
-        'copy:styles'
-      ],
       dist: [
         'coffee',
         'copy:styles',
@@ -309,14 +282,6 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
-  ]);
-
   grunt.registerTask('build', [
     'clean:dist',
     'useminPrepare',
@@ -334,7 +299,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'jshint',
-    'test',
     'build'
   ]);
 };
