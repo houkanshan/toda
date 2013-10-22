@@ -1,6 +1,3 @@
-/*global require*/
-'use strict';
-
 require.config({
   paths: {
     angular: '../bower_components/angular/angular'
@@ -10,11 +7,12 @@ require.config({
       exports: 'angular'
     }
   }
-});
+})
 
 require([
   'angular'
 , 'app'
-, 'controllers/main'], function (angular) {
-  angular.bootstrap(document, ['todaApp']);
-});
+, 'controllers/main'
+], function (angular) {
+  angular.bootstrap(document, ['todaApp'])
+})
