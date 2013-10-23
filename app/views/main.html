@@ -1,9 +1,12 @@
-<div class="hero-unit">
-  <h1>'Allo, 'Allo!</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
+<div class="hero-unit" ng-keypress="view.keyPress()">
+  <ul class="tasks-list">
+    <li class="task-item task-input">
+      <form class="task-item task-input" ng-submit="addTask()">
+        <input type="text" autofocus ng-model="newTask.text">
+      </form>
+    </li>
+    <li ng-taskItem class="task-item" ng-repeat="task in todos">
+      {{ task.text }}
+    </li>
   </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
 </div>

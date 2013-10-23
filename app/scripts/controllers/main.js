@@ -13,29 +13,41 @@ define([
     , text: ''
     }
   }
+  var taskMethod = {
+    addTask: function() {
+      // TODO: validate
+      this.todos.push(this.newTask)
+      this.newTask = new Task()
+    }
+  , completeTask: function(task) {
+      task.isDone = true
+    }
+  , removeTask: function(task) {
+      this.todos.splice(this.todos.indexOf(task), 1)
+    }
+  , checkEmtpyAndRemove: function(task) {
+      if (task.text.trim().length) { return }
+      this.removeTask(task)
+    }
+  }
+
+  var viewMethods = {
+    keyPress: function($event) {
+      console.log($event)
+    }
+  }
+
   angular.module('todaApp')
     .controller('MainCtrl', function ($scope, todoStorage) {
       var todos = $scope.todos = todoStorage.get()
-      var newTask = new Task()
 
       $scope.$watch('todos', function(newVal, oldVal) {
         // some statistics work
         todoStorage.set(todos)
       }, true)
 
-      $scope.addTask = function() {
-        // TODO: validate
-        todos.push(newTask)
-        newTask = new Task()
-      }
-
-      $scope.completeTask = function(task) {
-        task.isDone = true
-      }
-
-      $scope.removeTask = function(task) {
-        todos.splice(todos.indexOf(task), 1)
-      }
-
+      angular.extend($scope, taskMethod, {
+        view: viewMethods
+      })
     })
 })
