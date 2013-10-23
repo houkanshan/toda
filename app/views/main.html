@@ -1,11 +1,14 @@
-<div class="hero-unit" ng-keypress="view.keyPress()">
+<div class="hero-unit">
   <ul class="tasks-list">
     <li class="task-item task-input">
       <form class="task-item task-input" ng-submit="addTask()">
         <input type="text" autofocus ng-model="newTask.text">
       </form>
     </li>
-    <li ng-taskItem class="task-item" ng-repeat="task in todos">
+    <li class="task-item"
+      ng-repeat="task in todos" 
+      ng-class="{focused: 1}"
+      ng-click="focusTo($index)">
       {{ task.text }}
     </li>
   </ul>

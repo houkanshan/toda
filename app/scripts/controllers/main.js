@@ -32,22 +32,38 @@ define([
   }
 
   var viewMethods = {
-    keyPress: function($event) {
-      console.log($event)
+    focusNext: function() {
+      this.focusTo(this.focusIndex + 1)
+    }
+  , focusPrev: function() {
+      this.focusTo(this.focusIndex - 1)
+    }
+  , focusTo: function(i) {
+      console.log(i)
+      var length = this.todos.length
+      if (i >= length - 1) {
+        this.focusIndex = length
+        return
+      }
+      if (i < 0){
+        this.focusIndex = 0
+        return
+      }
+      this.focusIndex = i
+      console.log(this.focusIndex)
     }
   }
 
   angular.module('todaApp')
     .controller('MainCtrl', function ($scope, todoStorage) {
       var todos = $scope.todos = todoStorage.get()
+      this.focusIndex = 0
 
       $scope.$watch('todos', function(newVal, oldVal) {
         // some statistics work
         todoStorage.set(todos)
       }, true)
 
-      angular.extend($scope, taskMethod, {
-        view: viewMethods
-      })
+      angular.extend($scope, taskMethod, viewMethods)
     })
 })
