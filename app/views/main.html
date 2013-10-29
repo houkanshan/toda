@@ -1,14 +1,14 @@
 <div class="hero-unit">
   <ul class="tasks-list">
     <li class="task-item task-input">
-      <form class="task-item task-input" ng-submit="addTask()">
-        <input type="text" autofocus ng-model="newTask.text">
+      <form class="task-item" ng-submit="tasks.addTask()">
+        <input type="text" autofocus ng-model="tasks.newTask.text">
       </form>
     </li>
     <li class="task-item"
-      ng-repeat="task in todos" 
-      ng-class="{focused: 1}"
-      ng-click="focusTo($index)">
+      ng-repeat="task in tasks.todos" 
+      ng-class="{focused: $index == focusModel.focusIndex}"
+      ng-click="focusModel.focusTo($index)">
       {{ task.text }}
     </li>
   </ul>

@@ -1,37 +1,12 @@
 define([
   'angular'
-, 'services/todoStorage'
+, 'services/tasks'
 ], function(angular) {
-  var Task = function() {
-    return {
-      isDone: false
-    , isEdit: false
-    , isFocus: false
-    , isSelect: false
-    , isLeft: false
-    , isRight: false
-    , text: ''
-    }
+  function FocusModel(todos) {
+    this.todos = todos
+    this.focusIndex = 0
   }
-  var taskMethod = {
-    addTask: function() {
-      // TODO: validate
-      this.todos.push(this.newTask)
-      this.newTask = new Task()
-    }
-  , completeTask: function(task) {
-      task.isDone = true
-    }
-  , removeTask: function(task) {
-      this.todos.splice(this.todos.indexOf(task), 1)
-    }
-  , checkEmtpyAndRemove: function(task) {
-      if (task.text.trim().length) { return }
-      this.removeTask(task)
-    }
-  }
-
-  var viewMethods = {
+  FocusModel.prototype = {
     focusNext: function() {
       this.focusTo(this.focusIndex + 1)
     }
@@ -39,7 +14,6 @@ define([
       this.focusTo(this.focusIndex - 1)
     }
   , focusTo: function(i) {
-      console.log(i)
       var length = this.todos.length
       if (i >= length - 1) {
         this.focusIndex = length
@@ -50,20 +24,23 @@ define([
         return
       }
       this.focusIndex = i
-      console.log(this.focusIndex)
     }
   }
 
   angular.module('todaApp')
-    .controller('MainCtrl', function ($scope, todoStorage) {
-      var todos = $scope.todos = todoStorage.get()
-      this.focusIndex = 0
+    .controller('MainCtrl', function ($scope, $rootScope, tasksService) {
+      $scope.tasks = tasksService.get()
+      $rootScope.focusModel = $scope.focusModel
+        = new FocusModel($scope.tasks.todos)
 
-      $scope.$watch('todos', function(newVal, oldVal) {
+      $scope.$watch('tasks.todos', function(newVal, oldVal) {
         // some statistics work
-        todoStorage.set(todos)
+        tasksService.save()
       }, true)
 
-      angular.extend($scope, taskMethod, viewMethods)
+      $scope.$watch('focusModel.focusIndex', function(newVal, oldVal) {
+        if(newVal === oldVal) { return }
+        $scope.tasks.focus(newVal)
+      })
     })
 })
