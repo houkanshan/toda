@@ -2,7 +2,8 @@ define([
   'angular'
 , 'services/todoStorage'
 ], function(angular) {
-  var Task = function() {
+  var Task = function(text) {
+    text = text || ''
     return {
       isDone: false
     , isEdit: false
@@ -10,7 +11,7 @@ define([
     , isSelect: false
     , isLeft: false
     , isRight: false
-    , text: ''
+    , text: text
     }
   }
 
@@ -21,10 +22,11 @@ define([
   }
   Tasks.prototype = {
     constructor: Tasks.prototype.constructor
-  , addTask: function() {
+  , insertTask: function(index, text) {
       // TODO: validate
-      this.todos.unshift(this.newTask)
-      this.newTask = new Task()
+      var newTask = new Task(text)
+      this.todos.splice(index, 0, newTask)
+      return newTask
     }
   , completeTask: function(task) {
       task.isDone = true
@@ -37,8 +39,9 @@ define([
       this.removeTask(task)
     }
   , focus: function(focusIndex) {
-      if (!this.focusingTask) { return } // FIXME: del
-      this.focusingTask.isFocus = false
+      if (this.focusingTask) {
+        this.focusingTask.isFocus = false
+      }
       this.focusingTask = this.todos[focusIndex]
       this.focusingTask.isFocus = true
     }

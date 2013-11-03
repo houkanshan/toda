@@ -27,12 +27,14 @@ define([
     }
   }
 
-  function StateHandler(todos, focusModel) {
-    this.todos = todos
+  function TodaHandler(tasks, focusModel) {
+    this.tasks = tasks
+    this.todos = tasks.todos
     this.focusModel = focusModel
   }
-  StateHandler.prototype = {
+  TodaHandler.prototype = {
     insert: function() {
+      console.log('insert')
       this.getFocus().isEdit = true
     }
   , normal: function() {
@@ -50,6 +52,11 @@ define([
   , getFocus: function() {
       return this.todos[this.focusModel.focusIndex]
     }
+  , appendTask: function() {
+      console.log('called')
+      var task = this.tasks.insertTask(this.focusModel.focusIndex)
+      task.isEdit = true
+    }
   }
 
   angular.module('todaApp')
@@ -58,8 +65,8 @@ define([
       $rootScope.focusModel = $scope.focusModel
         = new FocusModel($scope.tasks.todos)
 
-      $rootScope.stateHandler = $scope.stateHandler
-        = new StateHandler($scope.tasks.todos, $scope.focusModel)
+      $rootScope.todaHandler = $scope.todaHandler
+        = new TodaHandler($scope.tasks, $scope.focusModel)
 
       $scope.$watch('tasks.todos', function(newVal, oldVal) {
         // some statistics work

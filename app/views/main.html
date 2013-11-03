@@ -1,21 +1,19 @@
 <div class="hero-unit">
   <ul class="tasks-list">
-    <li class="task-item task-input">
-      <form class="task-item" ng-submit="tasks.addTask()">
-        <input type="text"
-          autofocus 
-          ng-model="tasks.newTask.text"
-          stop-propagation="keyup"
-          esc-blur
-          >
-      </form>
-    </li>
     <li class="task-item"
       ng-repeat="task in tasks.todos" 
-      ng-class="{focused: $index == focusModel.focusIndex}"
+      ng-class="{focused: $index == focusModel.focusIndex, 'task-insert': task.isEdit}"
       ng-click="focusModel.focusTo($index)"
       >
-      {{ task.text }}
+      <span class="text-content">
+        {{ task.text }}
+      </span>
+      <input class="task-input" type="text"
+        stop-propagation="keyup"
+        task="task"
+        task-input
+        ng-model="task.text"
+        >
     </li>
   </ul>
 </div>

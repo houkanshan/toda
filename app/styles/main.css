@@ -19,3 +19,14 @@ body {
   background: red;
 }
 
+.task-item .task-input{
+  display: none
+}
+
+.task-insert .text-content{
+  display: none
+}
+
+.task-insert .task-input {
+  display: inline-block
+}

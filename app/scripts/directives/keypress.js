@@ -5,7 +5,7 @@ define([
     console.log('actived!!')
     return function(scope, elem, attrs) {
       elem.bind('keyup', function(e) {
-        console.log(e, e.keyCode)
+      console.log(e.keyCode)
         switch (e.keyCode) {
           case 34: // PgDn
           case 40: // down arrow
@@ -29,9 +29,11 @@ define([
           case 72: // H
             return scope.$apply(attrs.notaStar)
           case 73: // i
-            return scope.$apply(attrs.noteInsert)
+            return scope.$apply(attrs.notaInsert)
           case 68: // d
             return scope.$apply(attrs.noteDelete)
+          case 79: // o
+            return scope.$apply(attrs.notaAppend)
         }
       })
     }
