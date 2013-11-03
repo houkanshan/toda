@@ -2,13 +2,19 @@
   <ul class="tasks-list">
     <li class="task-item task-input">
       <form class="task-item" ng-submit="tasks.addTask()">
-        <input type="text" autofocus ng-model="tasks.newTask.text">
+        <input type="text"
+          autofocus 
+          ng-model="tasks.newTask.text"
+          stop-propagation="keyup"
+          esc-blur
+          >
       </form>
     </li>
     <li class="task-item"
       ng-repeat="task in tasks.todos" 
       ng-class="{focused: $index == focusModel.focusIndex}"
-      ng-click="focusModel.focusTo($index)">
+      ng-click="focusModel.focusTo($index)"
+      >
       {{ task.text }}
     </li>
   </ul>

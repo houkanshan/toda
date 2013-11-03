@@ -14,3 +14,8 @@ body {
     border-radius: 6px;
     padding: 60px;
 }
+
+.focused {
+  background: red;
+}
+

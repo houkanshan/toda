@@ -14,6 +14,8 @@ require([
 , 'app'
 , 'controllers/main'
 , 'directives/keypress'
+, 'directives/stop-propagation'
+, 'directives/esc-blur'
 ], function (angular) {
   angular.bootstrap(document, ['todaApp'])
 })

@@ -23,7 +23,7 @@ define([
     constructor: Tasks.prototype.constructor
   , addTask: function() {
       // TODO: validate
-      this.todos.push(this.newTask)
+      this.todos.unshift(this.newTask)
       this.newTask = new Task()
     }
   , completeTask: function(task) {
