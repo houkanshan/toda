@@ -31,7 +31,7 @@ define([
           case 73: // i
             return scope.$apply(attrs.notaInsert)
           case 68: // d
-            return scope.$apply(attrs.noteDelete)
+            return scope.$apply(attrs.notaRemove)
           case 79: // o
             return scope.$apply(attrs.notaAppend)
         }

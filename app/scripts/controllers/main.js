@@ -45,7 +45,7 @@ define([
       this.getFocus.isSelect = true
     }
   , clearSelect: function() {
-      this.todo.forEach(function(i, e) {
+      this.todos.forEach(function(i, e) {
         e.isSelect = false
       })
     }
@@ -53,9 +53,12 @@ define([
       return this.todos[this.focusModel.focusIndex]
     }
   , appendTask: function() {
-      console.log('called')
       var task = this.tasks.insertTask(this.focusModel.focusIndex)
       task.isEdit = true
+    }
+  , removeTask: function() {
+      console.log('remove')
+      this.tasks.removeTask(this.todos[this.focusModel.focusIndex])
     }
   }
 
